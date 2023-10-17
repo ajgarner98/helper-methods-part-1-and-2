@@ -4,6 +4,20 @@
   <p style="color: red;"><%= message %></p>
 <% end %>
 
+<%form_with(url: movie_path(@the_movie), method: :patch, data: {turbo: false}) do %>
+  <div>
+    <%=label_tag :title_box, "Title"%>
+    <%=text_field_tag :query_title, @the_movie.title, {id: "title_box"}%>
+  </div>
+
+  <div>
+    <%=label_tag :description_box, "Description"%>
+    <%=text_area_tag :description_title, @the_movie.description, {id: "description_box", row: 3}%>
+  </div>
+  <%=button_tag "Update Movie"%>
+  
+<%end%>
+
 
 
 <form action="<%= movie_path(@the_movie.id) %>" method="post" data-turbo="false">
