@@ -1,6 +1,6 @@
 class MoviesController < ApplicationController
   def new
-    @the_movie = Movie.new
+    @movie = Movie.new
   end
 
   def index
@@ -30,12 +30,14 @@ class MoviesController < ApplicationController
   end
 
   def create
-    @the_movie = Movie.new
-    @the_movie.title = params.fetch(:title)
-    @the_movie.description = params.fetch(:description)
+    movie_attributes = params.fetch(:movie)
+    @movie = Movie.new(movie_attributes)
+    #@movie = Movie.new
+    #@movie.title = params.fetch(:movie).fetch(:title)
+    #@movie.description = params.fetch(:movie).fetch(:description)
 
-    if @the_movie.valid?
-      @the_movie.save
+    if @movie.valid?
+      @movie.save
       redirect_to movies_url,  notice: "Movie created successfully." 
     else
       
