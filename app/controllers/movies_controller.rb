@@ -30,8 +30,9 @@ class MoviesController < ApplicationController
   end
 
   def create
-    movie_attributes = params.fetch(:movie)
+    movie_attributes = params.require(:movie).permit(:title, :description)
     @movie = Movie.new(movie_attributes)
+    
     #@movie = Movie.new
     #@movie.title = params.fetch(:movie).fetch(:title)
     #@movie.description = params.fetch(:movie).fetch(:description)
