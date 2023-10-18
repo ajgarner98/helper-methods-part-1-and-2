@@ -30,6 +30,7 @@ class MoviesController < ApplicationController
   end
 
   def create
+    
     movie_attributes = params.require(:movie).permit(:title, :description)
     @movie = Movie.new(movie_attributes)
     
@@ -50,19 +51,23 @@ class MoviesController < ApplicationController
 
     matching_movies = Movie.where(id: the_id )
 
-    @the_movie = matching_movies.first
+    @movie = matching_movies.first
 
   end
 
   def update
-    the_id = params.fetch(:id)
-    the_movie = Movie.where( id: the_id ).first
+    movie_attributes = params.require(:movie).permit(:title, :description)
+    matching_movies = Movie.find(params.fetch(:id))
+    
 
-    the_movie.title = params.fetch("query_title")
-    the_movie.description = params.fetch("query_description")
+    # the_id = params.fetch(:id)
+    # the_movie = Movie.where( id: the_id ).first
 
-    if the_movie.valid?
-      the_movie.save
+    # the_movie.title = params.fetch("query_title")
+    # the_movie.description = params.fetch("query_description")
+
+    if matching_movies.update(movie_attributes)
+      matching_movies.save
       redirect_to movies_url, notice: "Movie updated successfully."
     else
       redirect_to movies_url,  alert: "Movie failed to update successfully." 
